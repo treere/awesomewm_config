@@ -23,6 +23,17 @@ if awesome.startup_errors then
 										text = awesome.startup_errors })
 end
 
+function resize(c)
+  local grabber 
+	grabber = awful.keygrabber.run(function(mod, key, event)
+    if event == "release" then return end
+
+		naughty.notify({title= event,text= key })
+		awful.keygrabber.stop(grabber)
+  end)
+end
+
+
 -- Fake wmname
 awful.util.spawn_with_shell("wmname LG3D")
 
@@ -174,9 +185,9 @@ globalkeys = gears.table.join(
 			{description = "go back", group = "tag"}),
 
 	 -- Move clients
-	 awful.key({ modkey,           }, "j", function()  awful.client.focus.byidx( 1) end,
+	 awful.key({ modkey,           }, "j", function()  awful.client.focus.byidx(-1) end,
 			{description = "focus next by index", group = "client"}),
-	 awful.key({ modkey,           }, "k", function () awful.client.focus.byidx(-1) end,
+	 awful.key({ modkey,           }, "k", function () awful.client.focus.byidx( 1) end,
 			{description = "focus previous by index", group = "client"}),
 
 	 -- Screens
@@ -330,7 +341,9 @@ clientkeys = gears.table.join(
 				 c.maximized_horizontal = not c.maximized_horizontal
 				 c:raise()
 			end ,
-			{description = "(un)maximize horizontally", group = "client"})
+			{description = "(un)maximize horizontally", group = "client"}),
+			awful.key({modkey, },"d",	function (c) resize(c); end,
+			{description = "Resize a windows", group = "client"})
 )
 
 -- Bind all key numbers to tags.
