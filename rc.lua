@@ -144,6 +144,7 @@ awful.screen.connect_for_each_screen(function(s)
 							 require("widgets.battery"),
 							 require("widgets.volume"),
 							 require("widgets.ram"),
+							 require("widgets.temp"),
 							 wibox.widget.textclock(" %y %m %d %k:%M"),
 							 s.mylayoutbox,
 						},
