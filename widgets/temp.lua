@@ -34,24 +34,27 @@ watch([[bash -c "sensors -u | grep input -m2 | cut -d' ' -f4 | mean"]], 1,
 	 if tonumber(mean_temp) > 65 then
 			widget.colors = { "#FF0000FF" }
 	 else
-			widget.colors = { "#00FF00FF" }
+			widget.colors = { "#0000FFFF" }
 	 end
     end,
     temp_widget
 )
 
 local notification
-function show_ram_status()
-	 notification = naughty.notify {
-			text = "Mean CPU temp " .. mean_temp,
-			title = "Temp status",
+local function show_temp_status()
+	awful.spawn.easy_async([[bash -c 'sensors']],
+	function(stdout, _, _, _)
+		notification = naughty.notify {
+			text = stdout,
+			title = "Temperature status",
 			timeout = 5,
 			hover_timeout = 0.5,
-			width = 200,
-	 }
+			width = 400,
+		}
+	end)
 end
 
-temp_widget:connect_signal("mouse::enter", function() show_ram_status() end)
+temp_widget:connect_signal("mouse::enter", function() show_temp_status() end)
 temp_widget:connect_signal("mouse::leave", function() naughty.destroy(notification) end)
 
 

@@ -37,7 +37,7 @@ watch('bash -c "free | grep Mem"', 30,
 )
 
 local notification
-function show_ram_status()
+local function show_ram_status()
 	 notification = naughty.notify {
 			text = string.format("Used: %5.2f%s\nFree: %5.2f%s\nBuff: %5.2f%s",100*used/total,'%',100*free/total,'%',100*buff_cache/total,'%'),
 			title = "Ram status",
