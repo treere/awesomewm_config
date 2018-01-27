@@ -54,7 +54,10 @@ local function show_temp_status()
 	end)
 end
 
-temp_widget:connect_signal("mouse::enter", function() show_temp_status() end)
+temp_widget:connect_signal("button::press", function(_,_,_,button) 
+	if (button == 3) then show_temp_status() end
+end)
+
 temp_widget:connect_signal("mouse::leave", function() naughty.destroy(notification) end)
 
 

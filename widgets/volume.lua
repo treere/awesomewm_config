@@ -35,7 +35,7 @@ local update_graphic = function(widget, stdout, _, _, _)
 	 text.text = volume ~= 100 and volume or 'M';
 	 
 	 if mute == "off" then
-			widget.colors = { "#FF0000FF" }
+			widget.colors = { "#0000FFFF" }
 	 else
 			widget.colors = { "#00FF00FF" }
 	 end

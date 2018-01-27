@@ -50,7 +50,10 @@ function show_battery_status()
         end)
 end
 
-batteryarc:connect_signal("mouse::enter", function() show_battery_status() end)
+batteryarc:connect_signal("button::press",function(_,_,_,button)
+	if (button == 3) then show_battery_status() end
+end)
+
 batteryarc:connect_signal("mouse::leave", function() naughty.destroy(notification) end)
 
 --[[ Show warning notification ]]

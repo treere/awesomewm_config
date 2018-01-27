@@ -47,7 +47,9 @@ local function show_ram_status()
 	 }
 end
 
-ramgraph_widget:connect_signal("mouse::enter", function() show_ram_status() end)
+ramgraph_widget:connect_signal("button::press", function(_,_,_,button) 
+	if (button == 3) then show_ram_status() end
+end)
 ramgraph_widget:connect_signal("mouse::leave", function() naughty.destroy(notification) end)
 
 
