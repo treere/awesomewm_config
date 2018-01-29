@@ -15,12 +15,12 @@ local text = wibox.widget {
 local temp_widget = wibox.widget {
 	 text,
 	 min_value = 40,
-	 max_value = 100,
-	 start_angle = 3.1415926535, --4.71238898, -- 2pi*3/4
-	 widget = wibox.container.arcchart,
-	 bg = "ffffff55",
+	 max_value = 85,
 	 thickness = 2,
+	 start_angle = 3.1415926535, --4.71238898, -- 2pi*3/4
+	 bg = "ffffff55",
 	 paddings = 0,
+	 widget = wibox.container.arcchart,
 }
 
 local mean_temp
