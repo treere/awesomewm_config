@@ -41,15 +41,15 @@ local update_graphic = function(widget, stdout, _, _, _)
 	 end
 end
 
+local update_volume_arc = function (stdout, stderr, exitreason, exitcode)
+	update_graphic(volumearc,stdout, stderr, exitreason, exitcode)
+end
+
 volumearc:connect_signal("button::press", function(_, _, _, button)
-														if (button == 4) then awful.spawn(INC_VOLUME_CMD, false)
-														elseif (button == 5) then awful.spawn(DEC_VOLUME_CMD, false)
-														elseif (button == 1) then awful.spawn(TOG_VOLUME_CMD, false)
+														if (button == 4) then awful.spawn.easy_async(INC_VOLUME_CMD, update_volume_arc)
+														elseif (button == 5) then awful.spawn.easy_async(DEC_VOLUME_CMD, update_volume_arc)
+														elseif (button == 1) then awful.spawn.easy_async(TOG_VOLUME_CMD, update_volume_arc)
 														end
-														awful.spawn.easy_async(GET_VOLUME_CMD,
-														function (stdout, stderr, exitreason, exitcode)
-															update_graphic(volumearc,stdout, stderr, exitreason, exitcode)
-														end)
 end)
 
 watch(GET_VOLUME_CMD, 60, update_graphic, volumearc)
