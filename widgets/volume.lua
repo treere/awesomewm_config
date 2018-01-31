@@ -46,8 +46,12 @@ volumearc:connect_signal("button::press", function(_, _, _, button)
 														elseif (button == 5) then awful.spawn(DEC_VOLUME_CMD, false)
 														elseif (button == 1) then awful.spawn(TOG_VOLUME_CMD, false)
 														end
+														awful.spawn.easy_async(GET_VOLUME_CMD,
+														function (stdout, stderr, exitreason, exitcode)
+															update_graphic(volumearc,stdout, stderr, exitreason, exitcode)
+														end)
 end)
 
-watch(GET_VOLUME_CMD, 1, update_graphic, volumearc)
+watch(GET_VOLUME_CMD, 60, update_graphic, volumearc)
 
 return volumearc

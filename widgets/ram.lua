@@ -27,7 +27,7 @@ local ramgraph_widget = wibox.widget {
 
 local total, used, free, shared, buff_cache, available
 
-watch('bash -c "free | grep Mem"', 30,
+watch('bash -c "free | grep Mem"', 60,
     function(widget, stdout, stderr, exitreason, exitcode)
         total, used, free, shared, buff_cache, available = stdout:match('(%d+)%s*(%d+)%s*(%d+)%s*(%d+)%s*(%d+)%s*(%d+)')
         widget.values = { used,buff_cache,free }
