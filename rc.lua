@@ -244,7 +244,7 @@ globalkeys = gears.table.join(
 	 -- Manage Awesome
 	 awful.key({ modkey, "Shift" }, "r", awesome.restart,
 			{description = "reload awesome", group = "awesome"}),
-	 awful.key({ modkey, "Shift"   }, "q", awesome.quit,
+	 awful.key({ modkey, "Shift", "Control"  }, "q", awesome.quit,
 			{description = "quit awesome", group = "awesome"}),
 
 	 -- Resize windows
