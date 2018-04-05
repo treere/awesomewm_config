@@ -7,4 +7,3 @@ function run {
   fi
 }
 
-run nm-applet --no-agent
