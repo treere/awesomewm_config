@@ -23,6 +23,7 @@ if awesome.startup_errors then
 										text = awesome.startup_errors })
 end
 
+
 function resize(c)
   local grabber 
 	grabber = awful.keygrabber.run(function(mod, key, event)
@@ -36,6 +37,9 @@ end
 
 -- Fake wmname
 awful.util.spawn_with_shell("wmname LG3D")
+
+-- Autorun programs
+awful.spawn.with_shell("~/.config/awesome/autorun.sh")
 
 -- Handle runtime errors after startup
 do
@@ -185,6 +189,26 @@ globalkeys = gears.table.join(
 	 awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
 			{description = "go back", group = "tag"}),
 
+	 -- Volume Keys
+   awful.key({}, "XF86AudioLowerVolume", function ()
+     awful.util.spawn("amixer -q -D pulse sset Master 5%-", false)
+   end),
+   awful.key({}, "XF86AudioRaiseVolume", function ()
+     awful.util.spawn("amixer -q -D pulse sset Master 5%+", false)
+   end),
+   awful.key({}, "XF86AudioMute", function ()
+     awful.util.spawn("amixer -D pulse set Master 1+ toggle", false)
+   end),   -- Volume Keys
+   awful.key({}, "XF86AudioLowerVolume", function ()
+     awful.util.spawn("amixer -q -D pulse sset Master 5%-", false)
+   end),
+   awful.key({}, "XF86AudioRaiseVolume", function ()
+     awful.util.spawn("amixer -q -D pulse sset Master 5%+", false)
+   end),
+   awful.key({}, "XF86AudioMute", function ()
+     awful.util.spawn("amixer -D pulse set Master 1+ toggle", false)
+   end),
+
 	 -- Move clients
 	 awful.key({ modkey,           }, "j", function()  awful.client.focus.byidx(-1) end,
 			{description = "focus next by index", group = "client"}),
@@ -229,7 +253,7 @@ globalkeys = gears.table.join(
 				 local matcher = function (c)
 						return awful.rules.match(c, {class = 'Firefox'})
 				 end
-				 awful.client.run_or_raise("firefox", matcher)
+				 awful.client.run_or_raise("firefox-developer-edition", matcher)
 			end,
 			{description = "Launch Firefox", group = "launcher"}),
 	 awful.key({ modkey, "Shift"   }, "e"     ,
@@ -239,7 +263,7 @@ globalkeys = gears.table.join(
 				 end
 				 awful.client.run_or_raise("emacs", matcher)
 			end,
-			{description = "Launch Firefox", group = "launcher"}),
+			{description = "Launch emacs", group = "launcher"}),
 
 	 -- Manage Awesome
 	 awful.key({ modkey, "Shift" }, "r", awesome.restart,
@@ -291,8 +315,9 @@ globalkeys = gears.table.join(
 				 myscreen = awful.screen.focused()
 				 myscreen.mywibox.visible = not myscreen.mywibox.visible
 			end,
-			{description = "toggle statusbar",group = "awesome"}
-	 )	
+			{description = "toggle statusbar",group = "awesome"}),
+	awful.key({ modkey, "Control" }, "b"  , function () awful.spawn("slock") end,
+						{description = "Lock the screen",group = "launcher"})
 )
 
 clientkeys = gears.table.join(
