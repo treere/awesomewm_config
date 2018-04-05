@@ -443,6 +443,7 @@ awful.rules.rules = {
 										keys = clientkeys,
 										buttons = clientbuttons,
 										screen = awful.screen.preferred,
+										size_hints_honor = false,
 										placement = awful.placement.no_overlap+awful.placement.no_offscreen
      }
 	 },
