@@ -25,7 +25,7 @@ local temp_widget = wibox.widget {
 
 local mean_temp
 
-watch([[bash -c "sensors -u | grep input -m2 | cut -d' ' -f4 | mean"]], 60,
+watch([[bash -c "sensors -u | grep input -m2 | awk '{ total += $2; count++ } END { print total/count }'"]], 60,
     function(widget, stdout, stderr, exitreason, exitcode)
         mean_temp = stdout:match('(%d+)')
         widget.value = mean_temp
